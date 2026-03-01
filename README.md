@@ -115,8 +115,8 @@ Perfect for **$10 ARM boards**, IoT devices, robotics, and edge computing.
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/yourusername/metalnllb.git
-cd metalnllb
+git clone https://github.com/Al-aminI/bare-metal-nllb.git
+cd bare-metal-nllb
 
 # 2. Run setup (downloads model, installs dependencies)
 ./setup.sh
