@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/license/yourusername/metalnllb?style=flat-square" alt="License"/>
+  <img src="https://img.shields.io/github/license/Al-aminI/bare-metal-nllb?style=flat-square" alt="License"/>
   <img src="https://img.shields.io/badge/languages-200+-blue?style=flat-square" alt="Languages"/>
   <img src="https://img.shields.io/badge/dependencies-zero-green?style=flat-square" alt="Dependencies"/>
   <img src="https://img.shields.io/badge/platform-x86%20%7C%20ARM-lightgrey?style=flat-square" alt="Platform"/>
@@ -23,14 +23,13 @@
   <span> · </span>
   <a href="#-performance-benchmark">Benchmarks</a>
   <span> · </span>
-  <a href="docs/FINAL_BENCHMARK.md">Documentation</a>
-  <span> · </span>
   <a href="CONTRIBUTING.md">Contributing</a>
 </h3>
 
 ---
 
-**High-performance, pure C implementation of NLLB-200** with INT8 quantization.  
+**High-performance, pure C implementation of NLLB-200** with INT8 quantization
+for **Neural Machine TranslationApplications**.  
 Achieves **3.47x faster inference than CTranslate2** with **80% less memory**  
 while maintaining **100% translation quality parity**.
 
