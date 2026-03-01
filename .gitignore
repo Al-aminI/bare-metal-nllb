@@ -1,0 +1,57 @@
+# Compiled binaries
+*.o
+pico_nllb
+pico_nllb_opt
+pico_nllb_baseline
+pico_nllb_flash
+pico_nllb_o0
+pico_nllb_debug
+pico_nllb_arm
+pico_nllb_fp16
+
+# Debug symbols
+*.dSYM/
+
+# Model files (too large for git)
+*.safetensors
+model*.bin
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# Jupyter
+.ipynb_checkpoints
+*.ipynb
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Cache
+.cache/
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# Build artifacts
+*.a
+*.dylib
+*.so
