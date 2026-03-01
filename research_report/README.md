@@ -123,9 +123,10 @@ research_report/
 ## Contact
 
 For questions, corrections, or collaboration:
-- GitHub Issues: [repository link]
-- Email: [contact email]
-- Twitter: [@handle]
+- GitHub Issues: [repository link](https://github.com/Al-aminI/bare-metal-nllb)
+- Email: [alaminibrahim433@gmail.com]
+- Twitter: [@alamin_ai_]
+- Discord: [Bare Metal Discord Community](https://discord.gg/HYezaQAVXr)
 
 ---
 
