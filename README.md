@@ -29,7 +29,7 @@
 ---
 
 **High-performance, pure C implementation of NLLB-200** with INT8 quantization
-for **Neural Machine TranslationApplications**.  
+for **Neural Machine Translation Applications**.  
 Achieves **3.47x faster inference than CTranslate2** with **80% less memory**  
 while maintaining **100% translation quality parity**.
 
