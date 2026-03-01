@@ -1,10 +1,10 @@
 #!/bin/bash
-# Setup script for PicoNLLB
+# Setup script for MetalNLLB
 
 set -e
 
 echo "==================================="
-echo "PicoNLLB Setup"
+echo "MetalNLLB Setup"
 echo "==================================="
 echo
 
@@ -73,7 +73,7 @@ fi
 echo
 
 # Build the engine
-echo "Building PicoNLLB..."
+echo "Building MetalNLLB..."
 make clean
 make optimized
 

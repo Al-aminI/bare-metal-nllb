@@ -1,4 +1,4 @@
-/*  loader.c -- PicoNLLB
+/*  loader.c -- MetalNLLB
  *
  *  Opens .safetensors with mmap(), parses the JSON header to find byte
  *  offsets, and wires every tensor pointer directly into the mapped region.

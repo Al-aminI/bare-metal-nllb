@@ -1,4 +1,4 @@
-/*  main_fp16.c -- PicoNLLB with FP16 KV Cache
+/*  main_fp16.c -- MetalNLLB with FP16 KV Cache
  *
  *  Beam search translation with FP16 KV cache compression.
  *  Memory: 130MB → 82MB (37% reduction)

@@ -1,4 +1,4 @@
-/*  tensor.c -- PicoNLLB (INT8)
+/*  tensor.c -- MetalNLLB (INT8)
  *
  *  Core math primitives:
  *    - INT8 mat-vec with per-row scales (CTranslate2-style)

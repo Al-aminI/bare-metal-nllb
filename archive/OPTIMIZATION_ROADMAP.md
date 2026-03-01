@@ -1,4 +1,4 @@
-# Optimization Roadmap: Applying PicoLLM Techniques to PicoNLLB
+# Optimization Roadmap: Applying PicoLLM Techniques to MetalNLLB
 
 ## Analysis of PicoLLM Optimizations for NLLB Translation Engine
 

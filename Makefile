@@ -1,4 +1,4 @@
-# Makefile -- PicoNLLB
+# Makefile -- MetalNLLB
 #
 # Targets:
 #   make              build for host (macOS / Linux)

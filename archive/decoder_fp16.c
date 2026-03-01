@@ -1,4 +1,4 @@
-/*  decoder_fp16.c -- PicoNLLB with FP16 KV Cache
+/*  decoder_fp16.c -- MetalNLLB with FP16 KV Cache
  *
  *  Decoder forward pass with FP16 KV cache compression.
  *  Reduces memory footprint by 50% (130MB → 82MB) with negligible quality impact.

@@ -1,12 +1,12 @@
 # Quick Start Guide
 
-Get PicoNLLB running in 5 minutes!
+Get MetalNLLB running in 5 minutes!
 
 ## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/piconllb.git
-cd piconllb
+git clone https://github.com/Al-aminI/bare-metal-nllb
+cd MetalNLLB
 ```
 
 ## 2. Run Setup
@@ -79,7 +79,7 @@ make clean && make optimized
 
 ## Supported Languages
 
-PicoNLLB supports 200+ languages. Common ones:
+MetalNLLB supports 200+ languages. Common ones:
 
 | Language | Code | Example |
 |----------|------|---------|

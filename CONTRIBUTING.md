@@ -1,11 +1,11 @@
-# Contributing to PicoNLLB
+# Contributing to MetalNLLB
 
 Thank you for your interest in contributing! This document provides guidelines for contributing to the project.
 
 ## Getting Started
 
 1. Fork the repository
-2. Clone your fork: `git clone https://github.com/your-username/piconllb.git`
+2. Clone your fork: `git clone https://github.com/your-username/MetalNLLB.git`
 3. Create a branch: `git checkout -b feature/your-feature-name`
 4. Make your changes
 5. Test thoroughly
@@ -193,4 +193,4 @@ Contributors will be:
 - Credited in release notes
 - Acknowledged in research report updates
 
-Thank you for contributing to PicoNLLB! 🚀
+Thank you for contributing to MetalNLLB! 🚀

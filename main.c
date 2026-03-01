@@ -1,4 +1,4 @@
-/*  main.c -- PicoNLLB  Beam Search (CTranslate2-style)
+/*  main.c -- MetalNLLB  Beam Search (CTranslate2-style)
  *
  *  Usage:
  *    ./pico_nllb <model.safetensors> <src_lang> <tgt_lang> [token_ids...]
@@ -247,7 +247,7 @@ static void* beam_worker(void* arg) {
 /* ═══════════════════════════════════════════════════════════════════════════ */
 
 int main(int argc, char** argv) {
-    printf("=== PicoNLLB  (Beam Search, CTranslate2-style) ===\n\n");
+    printf("=== MetalNLLB  (Beam Search, CTranslate2-style) ===\n\n");
 
     if (argc < 4) {
         fprintf(stderr,

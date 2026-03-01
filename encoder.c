@@ -1,4 +1,4 @@
-/*  encoder.c -- PicoNLLB
+/*  encoder.c -- MetalNLLB
  *
  *  NLLB encoder: embed -> positional -> 12x TransformerLayer -> final_layernorm
  *

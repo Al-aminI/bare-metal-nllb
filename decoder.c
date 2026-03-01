@@ -1,4 +1,4 @@
-/*  decoder.c -- PicoNLLB
+/*  decoder.c -- MetalNLLB
  *
  *  Decoder forward pass and vocab projection.
  *  Beam search logic lives in main.c; this file provides the building blocks.

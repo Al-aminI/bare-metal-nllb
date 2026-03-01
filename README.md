@@ -1,4 +1,4 @@
-# PicoNLLB: Bare-Metal Neural Machine Translation Engine
+# MetalNLLB: Bare-Metal Neural Machine Translation Engine
 
 A high-performance, pure C implementation of NLLB-200 (No Language Left Behind) translation model with INT8 quantization. Achieves **1.46x faster inference than CTranslate2** while maintaining 100% translation quality parity.
 
@@ -18,7 +18,7 @@ A high-performance, pure C implementation of NLLB-200 (No Language Left Behind) 
 | Engine | Time | Throughput | Speedup |
 |--------|------|------------|---------|
 | CTranslate2 | 2082ms | 6.24 tok/s | 1.0x |
-| **PicoNLLB** | **1426ms** | **9.12 tok/s** | **1.46x** |
+| **MetalNLLB** | **1426ms** | **9.12 tok/s** | **1.46x** |
 
 See [FINAL_BENCHMARK.md](docs/FINAL_BENCHMARK.md) for detailed results.
 
@@ -163,13 +163,6 @@ During development, we discovered and fixed 13 critical bugs:
 
 See [research_report/06_bug_taxonomy.md](research_report/06_bug_taxonomy.md) for details.
 
-## 📚 Documentation
-
-- [FINAL_BENCHMARK.md](docs/FINAL_BENCHMARK.md) - Performance comparison
-- [EXECUTIVE_SUMMARY.md](docs/EXECUTIVE_SUMMARY.md) - Project overview
-- [RESEARCH_REPORT.md](docs/RESEARCH_REPORT.md) - Complete technical report
-- [research_report/](research_report/) - Detailed ablation study (10 sections)
-
 ## 🎓 Research Report
 
 This project includes a comprehensive research report documenting:
@@ -230,11 +223,11 @@ MIT License - see LICENSE file for details.
 If you use this work in your research, please cite:
 
 ```bibtex
-@software{piconllb2024,
-  title={PicoNLLB: Bare-Metal Neural Machine Translation Engine},
+@software{MetalNLLB2024,
+  title={MetalNLLB: Bare-Metal Neural Machine Translation Engine},
   author={[Your Name]},
   year={2024},
-  url={https://github.com/[your-username]/piconllb}
+  url={https://github.com/Al-aminI/bare-metal-nllb}
 }
 ```
 
