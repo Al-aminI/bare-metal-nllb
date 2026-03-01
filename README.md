@@ -1,6 +1,5 @@
 
-<img width="1024" height="1024" alt="Generated Image March 01, 2026 - 7_20PM" src="https://github.com/user-attachments/assets/5e8a67b2-ef27-404b-a242-f46d8d2109ed" />
-
+<img width="936" height="290" alt="Screenshot 2026-03-01 at 7 25 35 pm" src="https://github.com/user-attachments/assets/a5bee37c-d145-45ed-8e5d-4685efdad9a8" />
 
 <div align="center">
 
