@@ -41,29 +41,28 @@ if [ ! -f "model_int8_ct2.safetensors" ]; then
     echo "Downloading NLLB-200 model..."
     echo "This may take a few minutes (model is ~1.1GB)..."
     
-    # Create temporary conversion script
-    cat > /tmp/convert_model.py << 'EOF'
+    # Check if CT2 model already exists
+    if [ ! -d "/tmp/nllb-200-600M-ct2-int8" ]; then
+        echo "Converting model to CTranslate2 format..."
+        python3 << 'EOF'
 import ctranslate2
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-import os
 
-print("Loading model from Hugging Face...")
-model = AutoModelForSeq2SeqLM.from_pretrained("facebook/nllb-200-distilled-600M")
-tokenizer = AutoTokenizer.from_pretrained("facebook/nllb-200-distilled-600M")
-
-print("Converting to CTranslate2 format...")
+print("Downloading and converting NLLB-200 model...")
 converter = ctranslate2.converters.TransformersConverter(
     "facebook/nllb-200-distilled-600M"
 )
 converter.convert("/tmp/nllb-200-600M-ct2-int8", quantization="int8")
-
-print("Extracting SafeTensors...")
-# The model is now in CT2 format at /tmp/nllb-200-600M-ct2-int8
-print("✓ Model ready at /tmp/nllb-200-600M-ct2-int8")
+print("✓ Model converted to CTranslate2 format")
 EOF
-
-    python /tmp/convert_model.py
-    rm /tmp/convert_model.py
+    else
+        echo "✓ CT2 model already exists at /tmp/nllb-200-600M-ct2-int8"
+    fi
+    
+    # Convert CT2 model to SafeTensors
+    echo "Converting to SafeTensors format..."
+    python3 archive/ct2_to_safetensors_int8.py \
+        --ct2-dir /tmp/nllb-200-600M-ct2-int8 \
+        --out model_int8_ct2.safetensors
     
     echo "✓ Model downloaded and converted"
 else
