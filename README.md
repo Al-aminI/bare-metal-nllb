@@ -1,6 +1,6 @@
 # MetalNLLB: Bare-Metal Neural Machine Translation Engine
 
-A high-performance, pure C implementation of NLLB-200 (No Language Left Behind) translation model with INT8 quantization. Achieves **1.46x faster inference than CTranslate2** while maintaining 100% translation quality parity.
+A high-performance, pure C implementation of NLLB-200 (No Language Left Behind) translation model with INT8 quantization. Achieves **1.46x faster inference than CTranslate2** while maintaining 100% translation quality parity on $5 ARM and RISC-V boards increasingly deployed across IoT, robotics, and edge computing environments and machine translation applications.
 
 ## 🎯 Key Features
 
