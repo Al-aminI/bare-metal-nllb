@@ -15,8 +15,8 @@
 #define N_HEADS           16
 #define HEAD_DIM          64
 #define FFN_DIM           4096
-#define MAX_SEQ_LEN       1024
-#define MAX_GEN_LEN       256
+#define MAX_SEQ_LEN       256
+#define MAX_GEN_LEN       64
 #define KV_CACHE_LAYER_STRIDE   (2 * N_HEADS * MAX_GEN_LEN * HEAD_DIM)
 #define KV_CACHE_TOTAL_FLOATS   (DECODER_LAYERS * KV_CACHE_LAYER_STRIDE)
 #define XATTN_CACHE_TOTAL_FLOATS (DECODER_LAYERS * 2 * MAX_SEQ_LEN * D_MODEL)

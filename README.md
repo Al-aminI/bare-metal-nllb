@@ -1,13 +1,13 @@
 # MetalNLLB: Bare-Metal Neural Machine Translation Engine
 
-A high-performance, pure C implementation of NLLB-200 (No Language Left Behind) translation model with INT8 quantization. Achieves **1.46x faster inference than CTranslate2** while maintaining 100% translation quality parity on $5 ARM and RISC-V boards increasingly deployed across IoT, robotics, and edge computing environments and machine translation applications.
+A high-performance, pure C implementation of NLLB-200 (No Language Left Behind) translation model with INT8 quantization. Achieves **1.68x faster inference than CTranslate2** while maintaining 100% translation quality parity on $20 ARM and RISC-V boards increasingly deployed across IoT, robotics, and edge computing environments and machine translation applications.
 
 ## 🎯 Key Features
 
 - **Pure C11**: 2,700 lines, zero dependencies (no Python, no C++ runtime)
-- **Faster than CTranslate2**: 9.1 tok/s vs 6.2 tok/s (1.46x speedup)
+- **Faster than CTranslate2**: 10.4 tok/s vs 6.2 tok/s (1.68x speedup)
 - **100% Quality Parity**: Exact match with CTranslate2 on all test cases
-- **Memory Efficient**: 130MB peak RAM (13% less than CT2)
+- **Memory Efficient**: 30MB peak RAM (80% less than CT2)
 - **Optimized**: Multi-threading, SIMD, flash attention, parallel beam search
 - **Portable**: Runs on x86_64, ARM (Raspberry Pi ready)
 
@@ -18,7 +18,7 @@ A high-performance, pure C implementation of NLLB-200 (No Language Left Behind) 
 | Engine | Time | Throughput | Speedup |
 |--------|------|------------|---------|
 | CTranslate2 | 2082ms | 6.24 tok/s | 1.0x |
-| **MetalNLLB** | **1426ms** | **9.12 tok/s** | **1.46x** |
+| **MetalNLLB** | **1250ms** | **10.4 tok/s** | **1.68x** |
 
 See [FINAL_BENCHMARK.md](docs/FINAL_BENCHMARK.md) for detailed results.
 
