@@ -55,3 +55,7 @@ ENV/
 *.a
 *.dylib
 *.so
+
+# Documentation (large markdown files)
+research_report/
+economic_thesis/
