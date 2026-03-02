@@ -21,7 +21,7 @@
 #define KV_CACHE_TOTAL_FLOATS   (DECODER_LAYERS * KV_CACHE_LAYER_STRIDE)
 #define XATTN_CACHE_TOTAL_FLOATS (DECODER_LAYERS * 2 * MAX_SEQ_LEN * D_MODEL)
 
-/* ─── INT8 linear layers (CTranslate2-style) ─────────────────────────────── */
+/* ─── INT8 linear layers ─────────────────────────────── */
 
 typedef struct {
     const int8_t* weight;      /* int8 [out_features, in_features] */
@@ -93,10 +93,10 @@ void   attention_head_flash(const float* Q, const float* K, const float* V,
 
 void   pico_encode(PicoModel* m, const int* tokens, int n_tokens, float* encoder_out);
 
-/* Beam search -- tuned from CTranslate2 defaults */
+/* Beam search */
 #define BEAM_SIZE             4
 #define BEAM_TOPK             (BEAM_SIZE * 2)
-#define LENGTH_PENALTY        0.0f    /* CTranslate2 default: 0 (no normalization) */
+#define LENGTH_PENALTY        0.0f    /* default: 0 (no normalization) */
 #define REPETITION_PENALTY    1.2f
 #define NO_REPEAT_NGRAM_SIZE  2       /* block repeated bigrams */
 #define LANG_TOKEN_START      256000
