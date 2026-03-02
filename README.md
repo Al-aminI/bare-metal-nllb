@@ -326,10 +326,10 @@ MIT License - see LICENSE file for details.
 If you use this work in your research, please cite:
 
 ```bibtex
-@software{MetalNLLB2024,
+@software{MetalNLLB2026,
   title={MetalNLLB: Bare-Metal Neural Machine Translation Engine},
   author={[Your Name]},
-  year={2024},
+  year={2026},
   url={https://github.com/Al-aminI/bare-metal-nllb}
 }
 ```

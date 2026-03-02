@@ -1,3 +1,4 @@
+r
 # 7. System Architecture
 
 ## 7.1 Overview
@@ -6,14 +7,14 @@ The final system consists of 8 C files (~2,500 lines) implementing a complete NL
 
 ```
 pico_nllb/
-├── pico.h           (350 lines)  - Shared types and constants
-├── loader.c         (400 lines)  - Model loading and memory mapping
-├── tensor.c         (200 lines)  - INT8 operations and math primitives
-├── encoder.c        (300 lines)  - 12-layer transformer encoder
-├── decoder.c        (400 lines)  - 12-layer transformer decoder
-├── main.c           (600 lines)  - Beam search and CLI
-├── Makefile         (50 lines)   - Build system
-└── verify_before_c.py (200 lines) - Python validation
+- pico.h              (350 lines)  - Shared types and constants
+- loader.c            (400 lines)  - Model loading and memory mapping
+- tensor.c            (200 lines)  - INT8 operations and math primitives
+- encoder.c           (300 lines)  - 12-layer transformer encoder
+- decoder.c           (400 lines)  - 12-layer transformer decoder
+- main.c              (600 lines)  - Beam search and CLI
+- Makefile            (50 lines)   - Build system
+- verify_before_c.py  (200 lines)  - Python validation
 ```
 
 ## 7.2 Memory Architecture

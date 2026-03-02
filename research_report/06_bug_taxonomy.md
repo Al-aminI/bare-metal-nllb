@@ -156,8 +156,8 @@ This bug was discovered during production validation when testing longer sentenc
 **Why This Happened:**
 
 The embedding scale (`sqrt(d_model) = 32`) is a standard transformer technique to prevent embeddings from being too small relative to positional encodings. However, this scale should only be applied during:
-- ✅ Input embedding lookup (to amplify embeddings)
-- ❌ Output vocab projection (WRONG - creates asymmetry)
+- Input embedding lookup (to amplify embeddings)
+- **Not** output vocab projection (applying it there creates asymmetry)
 
 The correct approach:
 ```
@@ -192,13 +192,13 @@ void pico_vocab_project(const PicoModel* m, const float* normed,
 
 **Results After Fix:**
 
-| Test Case | Before | After |
-|-----------|--------|-------|
-| Hello. | ✅ Match (wrong score) | ✅ EXACT MATCH |
-| Good morning. | ❌ Different | ✅ EXACT MATCH |
-| How are you? | ✅ Match | ✅ EXACT MATCH |
-| Thank you. | ✅ Match | ✅ EXACT MATCH |
-| Scientific method (long) | ❌ 10 tokens (short) | ✅ 13 tokens EXACT MATCH |
+| Test Case | Before                | After                 |
+|-----------|-----------------------|-----------------------|
+| Hello. | Match (wrong score)     | EXACT MATCH           |
+| Good morning. | Different        | EXACT MATCH           |
+| How are you? | Match             | EXACT MATCH           |
+| Thank you. | Match               | EXACT MATCH           |
+| Scientific method (long) | 10 tokens (short) | 13 tokens EXACT MATCH |
 
 **Overall: 60% → 100% exact parity**
 
@@ -263,7 +263,7 @@ This bug demonstrates that even after achieving "good" results (60% match), subt
 
 The vocab projection bug (Bug #13) was discovered only after achieving "good" results (60% exact match). This highlights critical lessons:
 
-1. **Good ≠ Production-Ready:**
+1. **Good Is Not Production-Ready:**
    - 60% exact match seemed acceptable
    - But longer sequences revealed systematic bias
    - Production requires 100% parity on diverse inputs
@@ -285,31 +285,29 @@ The vocab projection bug (Bug #13) was discovered only after achieving "good" re
 
 ## 6.7 Complete Bug Timeline
 
-```
-Day 1-3:   NF4 Implementation
-           ├─ Bug #1: Double quantization (FIXED)
-           ├─ Bug #2: Code table precision (FIXED)
-           ├─ Bug #6: Embedding scaling order (FIXED)
-           ├─ Bug #10: Sinusoidal encoding (FIXED)
-           ├─ Bug #11: Language token masking (FIXED)
-           └─ Bug #12: EOS repetition penalty (FIXED)
-           Result: NF4 insufficient for cross-attention
+Day 1-3: NF4 Implementation  
+- Bug #1: Double quantization (FIXED)  
+- Bug #2: Code table precision (FIXED)  
+- Bug #6: Embedding scaling order (FIXED)  
+- Bug #10: Sinusoidal encoding (FIXED)  
+- Bug #11: Language token masking (FIXED)  
+- Bug #12: EOS repetition penalty (FIXED)  
+Result: NF4 insufficient for cross-attention  
 
-Day 4-6:   INT8 Migration
-           ├─ Bug #7: Bias dtype mismatch (FIXED)
-           ├─ Bug #8: Scale direction (FIXED)
-           └─ Bug #9: Shared embedding scales (FIXED)
-           Result: 60% exact parity achieved
+Day 4-6: INT8 Migration  
+- Bug #7: Bias dtype mismatch (FIXED)  
+- Bug #8: Scale direction (FIXED)  
+- Bug #9: Shared embedding scales (FIXED)  
+Result: 60% exact parity achieved  
 
-Day 7-8:   Architecture Fixes
-           ├─ Bug #3: BOS token confusion (REVERTED)
-           ├─ Bug #4: Cross-attention never projected (FIXED)
-           └─ Bug #5: BOS never processed (FIXED)
-           Result: Stable inference, ready for validation
+Day 7-8: Architecture Fixes  
+- Bug #3: BOS token confusion (REVERTED)  
+- Bug #4: Cross-attention never projected (FIXED)  
+- Bug #5: BOS never processed (FIXED)  
+Result: Stable inference, ready for validation  
 
-Day 9-10:  Production Validation
-           └─ Bug #13: Vocab projection scaling (FIXED)
-           Result: 100% exact parity achieved
+Day 9-10: Production Validation  
+- Bug #13: Vocab projection scaling (FIXED)  
+Result: 100% exact parity achieved  
 
 Total: 13 bugs, 10 days, 100% parity
-```

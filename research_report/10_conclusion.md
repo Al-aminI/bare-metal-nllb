@@ -21,7 +21,7 @@ This paper presented a comprehensive ablation study of building a production-rea
 ## 10.2 Answers to Research Questions
 
 **RQ1: Can aggressive quantization maintain translation quality?**
-- **Answer:** INT8 yes, NF4 no. Cross-attention requires ≥8 bits for discriminative attention scores.
+- **Answer:** INT8 yes, NF4 no. Cross-attention requires at least 8 bits for discriminative attention scores.
 
 **RQ2: What are the critical implementation challenges?**
 - **Answer:** 12 bugs identified, categorized into quantization semantics (3), architecture logic (3), numerical precision (3), and model-specific quirks (3).
@@ -40,7 +40,7 @@ This paper presented a comprehensive ablation study of building a production-rea
 ### 10.3.1 Democratization of NMT
 
 This work enables neural machine translation on:
-- **$35 Raspberry Pi 4** (4GB RAM) ✅ Validated
+- **$35 Raspberry Pi 4** (4GB RAM) - Validated
 - **$100 Raspberry Pi 5** (8GB RAM) - Comfortable headroom
 - **Embedded ARM systems** (512MB+ RAM with optimizations: beam_size=1 reduces to ~60MB)
 - **Offline devices** (no internet required)
@@ -182,8 +182,8 @@ After the initial research report was completed with 60% exact parity, productio
 ### The Discovery
 
 **Symptom:** Longer sentences produced systematically shorter translations
-- Short (3-5 tokens): 60% exact match ✅
-- Long (10+ tokens): Shorter, missing content ❌
+- Short (3-5 tokens): 60% exact match
+- Long (10+ tokens): Shorter, missing content
 
 **Example:**
 ```
@@ -218,15 +218,15 @@ logits[v] = l;  // No embedding scale division!
 
 **All Tests: 5/5 Exact Matches (100%)**
 
-| Test | Before | After |
-|------|--------|-------|
-| Hello. | ✅ Match | ✅ EXACT |
-| Good morning. | ❌ Different | ✅ EXACT |
-| How are you? | ✅ Match | ✅ EXACT |
-| Thank you. | ✅ Match | ✅ EXACT |
-| Scientific method | ❌ 10 tokens | ✅ 13 tokens EXACT |
+| Test | Before         | After                 |
+|------|----------------|-----------------------|
+| Hello. | Match        | EXACT                 |
+| Good morning. | Different | EXACT            |
+| How are you? | Match     | EXACT             |
+| Thank you. | Match       | EXACT             |
+| Scientific method | 10 tokens | 13 tokens EXACT |
 
-**Final Achievement: 100% exact parity with CTranslate2** ✅
+**Final Achievement: 100% exact parity with CTranslate2**
 
 ### Key Lesson
 
@@ -235,5 +235,5 @@ logits[v] = l;  // No embedding scale division!
 **Updated System Specifications:**
 - **Quality:** **100% exact match with CTranslate2** (was 60%)
 - **Total Bugs Fixed:** **13** (was 12)
-- **Production Status:** **Fully validated** ✅
+- **Production Status:** **Fully validated**
 

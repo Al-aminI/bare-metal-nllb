@@ -6,16 +6,16 @@
 
 **English → Hausa Translation Test Suite:**
 
-| Test Case | Source | CT2 Output | C Engine Output | Match |
-|-----------|--------|------------|-----------------|-------|
-| 1 | Hello. | Barka dai. | Barka dai. | ✅ Exact |
-| 2 | Good morning. | Barka da safe. | Barka da safe. | ✅ Exact |
-| 3 | How are you? | Yaya kake? | Yaya kake? | ✅ Exact |
-| 4 | Thank you very much. | Na gode sosai. | Na gode sosai. | ✅ Exact |
-| 5 | The scientific method is... | Hanyar kimiyya hanya ce mai kyau na koyo game da duniya. | Hanyar kimiyya hanya ce mai kyau na koyo game da duniya. | ✅ Exact |
+| Test Case | Source | CT2 Output | C Engine Output | Match         |
+|-----------|--------|------------|-----------------|---------------|
+| 1 | Hello. | Barka dai. | Barka dai. | Exact match   |
+| 2 | Good morning. | Barka da safe. | Barka da safe. | Exact match   |
+| 3 | How are you? | Yaya kake? | Yaya kake? | Exact match   |
+| 4 | Thank you very much. | Na gode sosai. | Na gode sosai. | Exact match   |
+| 5 | The scientific method is... | Hanyar kimiyya hanya ce mai kyau na koyo game da duniya. | Hanyar kimiyya hanya ce mai kyau na koyo game da duniya. | Exact match   |
 
 **Summary:**
-- **Exact matches:** 5/5 (100%) ✅
+- **Exact matches:** 5/5 (100%)
 - **Semantic equivalents:** 0/5 (0%)
 - **Anomalies:** 0/5 (0%)
 - **Failures:** 0/5 (0%)
@@ -35,11 +35,11 @@ Cause: NF4 quantization insufficient for cross-attention
 #### Phase 2: INT8 Implementation (60% parity)
 ```
 Test Results:
-- Hello: ✅ Exact match
-- Good morning: ❌ Different translation
-- How are you: ✅ Exact match  
-- Thank you: ✅ Exact match
-- Scientific method: ❌ Shorter (10 vs 13 tokens)
+- Hello: Exact match
+- Good morning: Different translation
+- How are you: Exact match  
+- Thank you: Exact match
+- Scientific method: Shorter (10 vs 13 tokens)
 
 Issue: Shorter translations, beam search favoring brevity
 ```
@@ -47,9 +47,9 @@ Issue: Shorter translations, beam search favoring brevity
 #### Phase 3: Vocab Projection Fix (100% parity)
 ```
 Test Results:
-- All 5 tests: ✅ Exact match
-- Long sentences: ✅ Full length, accurate
-- Scores: ✅ Match CT2 closely
+- All 5 tests: Exact match
+- Long sentences: Full length, accurate
+- Scores: Match CT2 closely
 
 Fix: Removed incorrect embedding scale from vocab projection
 ```
@@ -222,13 +222,13 @@ Perfect match. Complex technical translation with:
 | Peak memory | ~150MB | ~130MB | ~30MB | 0.20x (80% less) |
 | Encoder (16 tok) | ~400ms | ~640ms | ~214ms | 0.54x (1.87x faster) |
 | Decoder speed | ~3.0 tok/s | ~2.0 tok/s | ~10.4 tok/s | 3.47x (faster!) |
-| Translation quality | Reference | **100% exact parity** | **100% exact parity** | **1.0x** ✅ |
+| Translation quality | Reference | **100% exact parity** | **100% exact parity** | **1.0x** |
 | Code size | 50,000 lines | 2,500 lines | 2,700 lines | 0.05x |
 
 **Analysis:**
 - Memory: 80% better (4x smaller)
-- Speed: **3.47x faster than CTranslate2** ✅
-- Quality: **Perfect (100% exact match on all tests)** ✅
+- Speed: **3.47x faster than CTranslate2**
+- Quality: **Perfect (100% exact match on all tests)**
 
 **Key Achievement:** The optimized C engine is significantly faster than CTranslate2 while using a fraction of the memory and maintaining perfect quality parity, making it ideal for resource-constrained edge devices.
 
@@ -238,10 +238,10 @@ Perfect match. Complex technical translation with:
 
 | Scheme | Model Size | Cross-Attn Quality | Translation Quality |
 |--------|------------|-------------------|---------------------|
-| FP32 | 2.4GB | ✅ Perfect | ✅ Perfect |
-| FP16 | 1.2GB | ✅ Perfect | ✅ Perfect |
-| INT8 | 1.1GB | ✅ Good | ✅ Production |
-| NF4 | 675MB | ❌ Uniform | ❌ Garbage |
+| FP32 | 2.4GB | Perfect | Perfect |
+| FP16 | 1.2GB | Perfect | Perfect |
+| INT8 | 1.1GB | Good | Production |
+| NF4 | 675MB | Uniform | Garbage |
 
 **Conclusion:** INT8 is the minimum viable quantization for encoder-decoder NMT.
 
@@ -257,7 +257,7 @@ Perfect match. Complex technical translation with:
 | + Scale direction | Reasonable (but wrong) | 0% |
 | + Bias dtype | Better (but wrong) | 0% |
 | + Shared embedding scales | **Exact parity on short sentences** | **60%** |
-| + Vocab projection fix | **✅ Perfect parity on all tests** | **100%** ✅ |
+| + Vocab projection fix | **Perfect parity on all tests** | **100%** |
 
 **Critical path:** 
 1. Shared embedding scales enabled 60% parity
@@ -269,28 +269,28 @@ Perfect match. Complex technical translation with:
 
 | Component | Validation Method | Result |
 |-----------|------------------|--------|
-| NF4 dequant | Python reference | ✅ Correct math |
-| INT8 dequant | Python reference | ✅ Correct math |
-| Encoder output | Compare with CT2 | ✅ Match (after fix) |
-| Decoder hidden | Compare with CT2 | ✅ Match (after fix) |
-| Logits | Compare with CT2 | ✅ Match (after fix) |
-| Beam search | Token-by-token | ✅ Match (3/5 exact) |
+| NF4 dequant | Python reference | Correct math |
+| INT8 dequant | Python reference | Correct math |
+| Encoder output | Compare with CT2 | Match (after fix) |
+| Decoder hidden | Compare with CT2 | Match (after fix) |
+| Logits | Compare with CT2 | Match (after fix) |
+| Beam search | Token-by-token | Match (3/5 exact) |
 
 ## 8.4 Performance Optimizations
 
 ### 8.4.1 Optimization Summary
 
-After achieving 100% quality parity, we implemented performance optimizations inspired by PicoLLM, achieving **1.85x speedup** while maintaining perfect quality.
+After achieving 100% quality parity, we implemented performance optimizations, achieving **1.85x speedup** while maintaining perfect quality.
 
 | Optimization | Implementation | Speedup | Status |
 |--------------|----------------|---------|--------|
-| Fused dequant+dot | Eliminate temp buffers | Baseline | ✅ Implemented |
-| Multi-threading (4 cores) | Parallel matmul | 1.5x | ✅ Implemented |
-| NEON SIMD (ARM) | Vectorized ops | Ready for ARM | ✅ Implemented |
-| Flash attention | Fused softmax+value | 1.06x encoder | ✅ Implemented |
-| Parallel vocab projection | 4-thread vocab | 1.84x decoder | ✅ Implemented |
-| Parallel beam processing | 4 beams in parallel | 1.34x overall | ✅ Implemented |
-| FP16 KV cache | Half precision | 0% parity | ❌ Not viable |
+| Fused dequant+dot | Eliminate temp buffers | Baseline | Implemented |
+| Multi-threading (4 cores) | Parallel matmul | 1.5x | Implemented |
+| NEON SIMD (ARM) | Vectorized ops | Ready for ARM | Implemented |
+| Flash attention | Fused softmax+value | 1.06x encoder | Implemented |
+| Parallel vocab projection | 4-thread vocab | 1.84x decoder | Implemented |
+| Parallel beam processing | 4 beams in parallel | 1.34x overall | Implemented |
+| FP16 KV cache | Half precision | 0% parity | Not viable |
 
 ### 8.4.2 Detailed Analysis
 
@@ -373,7 +373,7 @@ Speedup: 2.52x from baseline
 **vs CTranslate2:**
 - CTranslate2: 3.0 tok/s
 - Our engine: 9.22 tok/s
-- **We are 3.07x faster!** ✅
+- **We are 3.07x faster!**
 
 ### 8.4.4 Why FP16 KV Cache Failed
 

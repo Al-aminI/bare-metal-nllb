@@ -72,16 +72,16 @@ Different frameworks use different conventions:
 ### 9.2.1 vs CTranslate2
 
 **Advantages of our approach:**
-- ✅ Simpler codebase (~2,500 lines vs ~50,000)
-- ✅ No external dependencies (vs Boost, Intel MKL)
-- ✅ Easier to understand and modify
-- ✅ Slightly lower memory (130MB vs 150MB)
+- Simpler codebase (~2,500 lines vs ~50,000)
+- No external dependencies (vs Boost, Intel MKL)
+- Easier to understand and modify
+- Slightly lower memory (130MB vs 150MB)
 
 **Advantages of CTranslate2:**
-- ✅ 1.5-2x faster (SIMD, threading)
-- ✅ More features (batching, sampling, multiple models)
-- ✅ Production-tested (used by major companies)
-- ✅ Active maintenance
+- 1.5-2x faster (SIMD, threading)
+- More features (batching, sampling, multiple models)
+- Production-tested (used by major companies)
+- Active maintenance
 
 **Conclusion:** Our implementation is ideal for:
 - Learning/research
@@ -112,15 +112,15 @@ CTranslate2 is better for:
 ### 9.2.3 vs ONNX Runtime
 
 **Advantages of ONNX:**
-- ✅ Broad model support
-- ✅ Multiple backends (CPU, GPU, NPU)
-- ✅ Automatic optimization
+- Broad model support
+- Multiple backends (CPU, GPU, NPU)
+- Automatic optimization
 
 **Advantages of our approach:**
-- ✅ No runtime dependencies
-- ✅ Smaller binary (~100KB vs ~50MB)
-- ✅ Predictable performance
-- ✅ Full control over execution
+- No runtime dependencies
+- Smaller binary (~100KB vs ~50MB)
+- Predictable performance
+- Full control over execution
 
 ## 9.3 Practical Implications
 

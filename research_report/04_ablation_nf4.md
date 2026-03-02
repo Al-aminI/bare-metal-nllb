@@ -24,9 +24,9 @@ void dequantize_nf4_block(
 ```
 
 **Validation:**
-- ✅ Dequantization produces finite values
-- ✅ Weight statistics reasonable (mean ≈ 0, std ≈ 0.04)
-- ✅ Embedding lookups functional
+- Dequantization produces finite values
+- Weight statistics reasonable (mean approximately 0, std approximately 0.04)
+- Embedding lookups functional
 
 ## 4.2 Critical Bug #1: Double Quantization Misinterpretation
 
@@ -79,9 +79,9 @@ raw_scores = [-0.0007, 0.0255, -0.0326, 0.0484]
 NF4 quantization (4-bit = 16 discrete values) destroys fine-grained directional information in Q/K projection weights:
 
 **Theoretical Analysis:**
-- Q, K ∈ ℝ^(1024): Need to preserve angular relationships
-- NF4: Each weight ∈ {-1.0, -0.696, ..., 0.0, ..., 1.0} (16 values)
-- Result: Q·K ≈ 0 for most token pairs
+- Q and K are 1024-dimensional real vectors: need to preserve angular relationships
+- NF4: Each weight is one of 16 discrete real values (e.g., -1.0, -0.696, ..., 0.0, ..., 1.0)
+- Result: Q·K values are close to 0 for most token pairs
 
 **Empirical Validation:**
 ```python
@@ -110,8 +110,8 @@ Encoder-decoder models require:
 |--------|-----|------|
 | Model size | 675MB | 1.1GB |
 | Discrete values | 16 | 256 |
-| Cross-attn quality | ❌ Uniform | ✅ Discriminative |
-| Translation quality | ❌ Garbage | ✅ Production |
+| Cross-attn quality | Uniform (bad) | Discriminative (good) |
+| Translation quality | Garbage | Production-grade |
 | Memory footprint | 27MB | 35MB |
 
 ### 4.4.2 Rationale

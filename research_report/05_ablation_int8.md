@@ -147,7 +147,7 @@ float final = scaled + pos_encoding;
 Test: "Hello."
 C:   "Bonjour à vous."
 CT2: "Je vous en prie."
-Match: ❌
+Match: Different
 ```
 
 **After fix:**
@@ -155,20 +155,20 @@ Match: ❌
 Test: "Hello."
 C:   "Je vous en prie."
 CT2: "Je vous en prie."
-Match: ✅ EXACT
+Match: EXACT
 ```
 
 ## 5.4 Validation Results
 
 ### 5.4.1 Token-Level Accuracy
 
-| Test Case | Tokens | C Output | CT2 Output | Match |
-|-----------|--------|----------|------------|-------|
-| "Hello." | 4 | Je vous en prie. | Je vous en prie. | ✅ 100% |
-| "Good morning." | 5 | Je vous en prie. | Bonjour à vous tous. | ❌ 0% |
-| "Scientific method" | 16 | La méthode scientifique... | La méthode scientifique... | ✅ 100% |
-| "How are you?" | 6 | Ça va ? | Ça va ? | ✅ 100% |
-| "Thank you" | 7 | Merci beaucoup. | Je vous remercie. | ⚠️ Semantic |
+| Test Case | Tokens | C Output | CT2 Output | Match        |
+|-----------|--------|----------|------------|-------------|
+| "Hello." | 4 | Je vous en prie. | Je vous en prie. | 100% (exact) |
+| "Good morning." | 5 | Je vous en prie. | Bonjour à vous tous. | 0% |
+| "Scientific method" | 16 | La méthode scientifique... | La méthode scientifique... | 100% (exact) |
+| "How are you?" | 6 | Ça va ? | Ça va ? | 100% (exact) |
+| "Thank you" | 7 | Merci beaucoup. | Je vous remercie. | Semantic match |
 
 ### 5.4.2 Analysis
 - **Exact matches:** 3/5 (60%)
