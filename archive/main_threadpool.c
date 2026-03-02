@@ -1,4 +1,4 @@
-/*  main.c -- MetalNLLB  Beam Search (CTranslate2-style)
+/*  main.c -- MetalNLLB  Beam Search
  *
  *  Usage:
  *    ./pico_nllb <model.safetensors> <src_lang> <tgt_lang> [token_ids...]
@@ -41,7 +41,7 @@ typedef struct {
     int   tokens[MAX_GEN_LEN];
     int   n_tokens;
     float score;
-    float eos_score;  /* Score of EOS token (excluded from final score like CT2) */
+    float eos_score;  /* Score of EOS token (excluded from final score) */
     int   finished;
 } Beam;
 
@@ -181,7 +181,7 @@ static void find_topk(const float* v, int n, int k,
     }
 }
 
-/* ─── Repetition penalty (CTranslate2 style) ───────────────────────────── */
+/* ─── Repetition penalty ───────────────────────────── */
 
 static void apply_repetition_penalty(float* logits, const int* tokens,
                                      int n_tokens, float penalty) {
@@ -193,7 +193,7 @@ static void apply_repetition_penalty(float* logits, const int* tokens,
     }
 }
 
-/* ─── No-repeat-ngram (CTranslate2 decoding_utils.cc) ───────────────────── */
+/* ─── No-repeat-ngram ───────────────────── */
 
 static void apply_no_repeat_ngram(float* logits, const int* tokens,
                                   int n_tokens, int ngram_size) {
@@ -212,7 +212,7 @@ static void apply_no_repeat_ngram(float* logits, const int* tokens,
     }
 }
 
-/* ─── Length penalty (CTranslate2: score / pow(len, alpha)) ─────────────── */
+/* ─── Length penalty (score / pow(len, alpha)) ─────────────── */
 
 static float length_norm(float score, int len) {
     if (LENGTH_PENALTY == 0.0f) return score;
@@ -247,7 +247,7 @@ static void* beam_worker(void* arg) {
 /* ═══════════════════════════════════════════════════════════════════════════ */
 
 int main(int argc, char** argv) {
-    printf("=== MetalNLLB  (Beam Search, CTranslate2-style) ===\n\n");
+    printf("=== MetalNLLB  (Beam Search) ===\n\n");
 
     if (argc < 4) {
         fprintf(stderr,
@@ -397,8 +397,8 @@ int main(int argc, char** argv) {
     /* Completed hypotheses */
     Beam completed[BEAM_SIZE * 2];
     int n_completed = 0;
-    /* CT2 doesn't do early exit when length_penalty=0 - let all beams finish naturally */
-    int allow_early_exit = 0;  /* Disabled to match CT2 behavior */
+    /* doesn't do early exit when length_penalty=0 - let all beams finish naturally */
+    int allow_early_exit = 0;  /* Disabled to match behavior */
 
     /* Steps 2..max_out: beam search with parallel beam processing */
     for (int step = 2; step < max_out + 2; step++) {
@@ -471,7 +471,7 @@ int main(int argc, char** argv) {
             nb[i].score = cands[i].score;
             nb[i].finished = (cands[i].token == 2);
             
-            /* Track EOS score separately (CT2 excludes it from final score) */
+            /* Track EOS score separately */
             if (cands[i].token == 2) {
                 nb[i].eos_score = cands[i].score - beams[par].score;
             } else {
@@ -491,7 +491,7 @@ int main(int argc, char** argv) {
                step, n_active, n_completed, beams[0].n_tokens - 2, beams[0].score);
         fflush(stdout);
 
-        /* CTranslate2 early exit: when length_penalty==0, stop as soon as
+        /* early exit: when length_penalty==0, stop as soon as
          * top beam finishes AND we have at least 1 completed hypothesis */
         if (allow_early_exit && n_completed > 0 && beams[0].finished) {
             printf("\n[beam] early exit (top beam finished)\n");
@@ -520,9 +520,9 @@ int main(int argc, char** argv) {
     float bn = -1e30f;
     for (int c = 0; c < n_completed; c++) {
         int cl = completed[c].n_tokens - 2;
-        /* Exclude EOS score from final score (match CT2 behavior) */
+        /* Exclude EOS score from final score (match behavior) */
         float final_score = completed[c].score - completed[c].eos_score;
-        /* CT2 always uses normalized score for selection, regardless of length_penalty */
+        /* always uses normalized score for selection, regardless of length_penalty */
         float ns = final_score / (float)(cl + 1);  /* Normalize by length including EOS */
         if (ns > bn) { bn = ns; bi = c; }
     }
@@ -535,7 +535,7 @@ int main(int argc, char** argv) {
     for (int c = 0; c < n_completed; c++) {
         int cl = completed[c].n_tokens - 2;
         float final_score = completed[c].score - completed[c].eos_score;
-        /* CT2 normalizes score by target length (including EOS in count) */
+        /* normalizes score by target length (including EOS in count) */
         float normalized_score = final_score / (float)(cl + 1);  /* +1 for EOS */
         printf("  hyp%d: score=%.2f (norm=%.2f) len=%d [", c, final_score, normalized_score, cl);
         for (int i = 2; i < completed[c].n_tokens; i++)
@@ -544,13 +544,13 @@ int main(int argc, char** argv) {
     }
 
     double tps = n_out > 0 ? (double)n_out / (t_dec / 1000.0) : 0;
-    /* Report normalized score like CT2 - use same calculation as hypotheses */
+    /* Report normalized score like default - use same calculation as hypotheses */
     int best_cl = best->n_tokens - 2;
     float normalized_best_score = best_score / (float)(best_cl + 1);  /* +1 for EOS */
     printf("\nbest: %d tokens, score=%.2f, enc=%.0fms, dec=%.0fms, %.2f tok/s\n",
            n_out, normalized_best_score, t_enc, t_dec, tps);
     printf("tokens:");
-    /* Output tokens without EOS (match CT2 format) */
+    /* Output tokens without EOS */
     for (int i = 2; i < best->n_tokens; i++) {
         if (best->tokens[i] == 2) break;  /* Stop at EOS, don't include it */
         printf(" %d", best->tokens[i]);
