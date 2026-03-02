@@ -221,7 +221,6 @@ See [NLLB-200 documentation](https://github.com/facebookresearch/flores/blob/mai
 - Result: **100% parity achieved** ✅
 
 ### Phase 3: Performance Optimization
-- Applied PicoLLM-inspired optimizations
 - Achieved **4.6x speedup** from baseline
 - Result: **1.46x faster than CTranslate2** ✅
 
@@ -320,7 +319,6 @@ MIT License - see LICENSE file for details.
 
 - **Meta AI**: NLLB-200 model and research
 - **OpenNMT**: CTranslate2 reference implementation
-- **PicoLLM**: Optimization techniques and inspiration
 - **Hugging Face**: Model hosting and transformers library
 
 ## 📞 Citation
